@@ -1,0 +1,239 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinic Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#10272e;--ink2:#1c3b45;--bg:#f2f5f4;--line:#e1e8e6;--txt:#14262b;--mut:#66797e;--ac:#0f9d8a;--ac2:#dff3ef;--blue:#4f8cff;--red:#d6455d;--amb:#c98a00;--grn:#1f9d63}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font:15px/1.5 "Instrument Sans",system-ui,sans-serif;color:var(--txt);background:var(--bg)}
+h1,h2,h3,.big,.num,.brand,.when b{font-family:"Bricolage Grotesque","Instrument Sans",sans-serif;letter-spacing:-.02em}
+h1{font-size:28px;margin:0}h3{font-size:18px;margin:0 0 12px}h3.sm{font-size:15px;margin-top:16px}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 14px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input,textarea{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:inherit;margin:0 0 10px}
+.btn{background:var(--ac);color:#fff;font-weight:600}.btn:disabled{opacity:.6}
+.ghost{background:#fff;border:1px solid var(--line);color:var(--txt)}.red{color:var(--red)}
+.mut,small{color:var(--mut)}.row{display:flex;gap:10px}.end{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+.auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{background:var(--ink);color:#e8f3f1;padding:56px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero h1{font-size:46px;line-height:1.05;max-width:11em;margin-bottom:14px}.hero p{color:#9db8b4;max-width:27em;margin:0}
+.form{display:grid;place-content:center;padding:40px}.form>div{width:min(360px,86vw)}
+.link{background:none;color:var(--ac);padding:8px 0}
+.shell{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+aside{background:var(--ink);color:#cfe3e0;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.brand{font-size:21px;font-weight:700;color:#fff;padding:0 10px 18px}
+#nav button{display:block;width:100%;text-align:left;background:none;color:#a9c4c0;padding:11px 12px}
+#nav button.on{background:var(--ink2);color:#fff}
+.foot{margin-top:auto;display:grid;gap:8px}.foot button{background:var(--ink2);color:#e8f3f1;text-align:left}
+.me{display:flex;gap:10px;align-items:center;padding:6px 4px}.me i{width:36px;height:36px;border-radius:50%;background:var(--ac);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:600}
+main{padding:26px 30px;max-width:1200px;width:100%}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.stats{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:14px;margin:18px 0}
+.stats .card{display:flex;flex-direction:column;gap:4px}.stats span{color:var(--mut)}
+.dark{background:var(--ink);border-color:var(--ink);color:#fff}.dark span,.dark p{color:#9db8b4}.dark p{margin:0}
+.big{font-size:44px;line-height:1}.num{font-size:34px;font-weight:700}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:14px}
+.chart{display:flex;gap:10px;align-items:flex-end}.bar{flex:1;text-align:center}
+.col{height:130px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+.col i{display:block;background:var(--blue);border-radius:6px 6px 3px 3px}.col i.x{background:#f0b4be}
+.key{display:flex;gap:14px;margin-top:10px;font-size:13px}.key b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--blue)}.key b.x{background:#f0b4be}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.head h3{margin:0}.head button{padding:4px 10px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal button{background:none;aspect-ratio:1;padding:0;border-radius:10px}.cal button:hover{background:var(--ac2)}
+.cal .today{background:var(--ink);color:#fff}.cal .has{box-shadow:inset 0 -3px 0 var(--ac)}.cal b{font-weight:500;color:var(--mut);font-size:12px}
+.it{display:grid;grid-template-columns:84px 1fr auto;gap:14px;padding:14px 0;border-top:1px solid var(--line)}.it:first-child{border-top:0}
+.when b{font-size:20px;display:block}.act{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.nm{font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:500;padding:2px 9px;border-radius:99px;background:#eef2f1;color:var(--mut)}
+.pill.confirmed,.pill.uLow{background:#dff3ea;color:var(--grn)}.pill.completed{background:#e2ecff;color:#2e62c9}
+.pill.cancelled,.pill.uHigh{background:#fde4e8;color:var(--red)}.pill.uMedium{background:#fff1cf;color:var(--amb)}
+details{margin-top:6px}summary{cursor:pointer;color:var(--ac);font-weight:500}pre{white-space:pre-wrap;font:inherit;background:#f6f9f8;padding:10px;border-radius:10px;margin:6px 0}
+.chips{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.chip{background:#fff;border:1px solid var(--line);border-radius:99px}.chip.on{background:var(--ink);color:#fff}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.doc{display:grid;grid-template-columns:40px 1fr;column-gap:10px;text-align:left;background:#fff;border:1px solid var(--line);padding:12px}
+.doc i{grid-row:span 2;width:40px;height:40px;border-radius:50%;background:var(--ac2);color:var(--ac);display:grid;place-items:center;font:700 16px "Bricolage Grotesque",sans-serif}
+.doc.sel{border-color:var(--ac);background:var(--ac2)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:12px}
+.slot{background:#fff;border:1px solid var(--line)}.slot:hover{border-color:var(--ac);background:var(--ac2)}
+.stack>.card{margin-bottom:14px}.timer{background:#fff1cf;color:var(--amb);padding:3px 10px;border-radius:99px;font-weight:600}
+.mo{position:fixed;inset:0;background:rgba(16,39,46,.5);display:grid;place-items:center;z-index:9}
+.mb{background:#fff;border-radius:18px;padding:22px;width:min(480px,92vw);max-height:90vh;overflow:auto}
+.rx{display:grid;grid-template-columns:1.2fr 1.4fr .6fr;gap:8px}.rx input{margin:0 0 8px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;z-index:20}.toast.err{background:var(--red)}
+.urg{background:#fff6f7;box-shadow:inset 3px 0 0 var(--red);padding-left:12px}.alert{background:#fde4e8;color:#8f1f33;border:1px solid #f3b9c3;border-radius:12px;padding:12px 14px;margin:0 0 12px}.alert b{display:block}
+@media(max-width:900px){.auth,.shell{grid-template-columns:1fr}.hero{display:none}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}.foot{margin:0;display:flex}.stats{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}.it{grid-template-columns:1fr}main{padding:18px}.rx{grid-template-columns:1fr}}
+</style></head><body>
+
+<div id="login" class="auth" hidden>
+ <div class="hero"><h1>Book, prepare and follow up in one place.</h1><p>Share your symptoms before you arrive. Your doctor reads a clear summary first, and you leave with plain-language next steps.</p></div>
+ <div class="form"><div>
+  <h1 id="ft">Sign in</h1><p class="mut">Use your clinic account.</p>
+  <input id="nm" placeholder="Full name" hidden><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password">
+  <button class="btn" id="go" style="width:100%" onclick="go()">Sign in</button>
+  <button class="link" id="sw" onclick="mode(!regMode)">New patient? Create an account</button>
+ </div></div>
+</div>
+
+<div id="shell" class="shell" hidden>
+ <aside><div class="brand">Clinic Care</div><nav id="nav"></nav>
+  <div class="foot"><div class="me"><i id="av"></i><div><b id="un"></b><br><small id="ur"></small></div></div>
+   <button onclick="gcal()">Connect Google Calendar</button><button onclick="logout()">Sign out</button></div></aside>
+ <main>
+  <h1 id="hello"></h1><small id="today"></small>
+
+  <section id="v-dash" class="view" hidden>
+   <div class="stats" id="stats"></div>
+   <div class="g2">
+    <div class="card"><h3>Visits by weekday</h3><div class="chart" id="chart"></div>
+     <div class="key"><span><b></b>Booked or done</span><span><b class="x"></b>Cancelled</span></div></div>
+    <div class="card"><div class="head"><h3 id="calt"></h3><div><button class="ghost" onclick="mv(-1)" aria-label="Previous month">&lsaquo;</button> <button class="ghost" onclick="mv(1)" aria-label="Next month">&rsaquo;</button></div></div><div class="cal" id="cal"></div></div>
+   </div>
+   <div class="card"><div class="head"><h3>Coming up</h3><button class="ghost" onclick="view('appts')">See all</button></div><div id="up"></div></div>
+  </section>
+
+  <section id="v-book" class="view stack" hidden>
+   <div class="card" id="urgent"><h3>Need to be seen today?</h3><p class="mut">Describe what is wrong and we book the earliest free slot today, including slots kept free for urgent cases.</p>
+    <div id="ua" class="alert" hidden></div><textarea id="usym" rows="3" placeholder="What is happening? How long, how severe?" oninput="watch('usym','ua')"></textarea>
+    <div class="row"><input id="uspec" placeholder="Specialisation (optional)" style="margin:0"><button class="btn" id="ub" onclick="urgent()">Book earliest slot today</button></div></div>
+   <div class="card"><h3>Find a doctor</h3><div class="row"><input id="spec" placeholder="Specialisation, e.g. Cardiology" style="margin:0"><button class="btn" onclick="findDocs()">Search</button></div><div id="docs" class="docs"></div></div>
+   <div class="card" id="pick" hidden><h3>Choose a time</h3><input type="date" id="day" onchange="loadSlots()" style="max-width:220px"><div id="slots" class="slots"></div></div>
+   <div class="card" id="conf" hidden><div class="head"><h3>Tell the doctor what is wrong</h3><span class="timer" id="tm"></span></div>
+    <p class="mut" id="hs"></p><div id="ca" class="alert" hidden></div><textarea id="sym" oninput="watch('sym','ca')" rows="4" placeholder="Symptoms, how long you have had them, anything that makes them better or worse"></textarea>
+    <button class="btn" id="cb" onclick="confirmB()">Confirm booking</button></div>
+  </section>
+
+  <section id="v-appts" class="view" hidden><div class="chips" id="chips"></div><div class="card" id="all"></div></section>
+
+  <section id="v-meds" class="view" hidden><div class="card" id="meds"></div></section>
+
+  <section id="v-admin" class="view" hidden>
+   <div class="stats" id="astats"></div>
+   <div class="card"><div class="head"><h3>Doctors</h3><button class="btn" onclick="addDocM()">Add doctor</button></div><div id="dl"></div></div>
+   <div class="card" style="margin-top:14px"><h3>Clinic analytics</h3><div id="ana"></div></div>
+   <div class="card" style="margin-top:14px"><div class="head"><h3>Email log</h3><select id="ef" onchange="rEmails()" style="padding:6px;border-radius:10px;border:1px solid var(--line)"><option value="">All</option><option value="pending">Pending</option><option value="failed">Failed</option><option value="sent">Sent</option></select></div><div id="el"></div></div>
+  </section>
+ </main>
+</div>
+
+<div id="mo" class="mo" hidden onclick="if(event.target==this)closeM()"><div class="mb" id="mb"></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let me,appts=[],docs=[],cal=new Date(),B={},R={},V,timer,cur="dash",F="all",D=null,regMode=false;
+const ISO=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10),TODAY=()=>ISO(new Date());
+const fmt=d=>new Date(d+"T00:00").toLocaleDateString("en",{weekday:"short",day:"numeric",month:"short"});
+const cmp=(a,b)=>(a.day+a.start).localeCompare(b.day+b.start),cmpU=(a,b)=>(b.is_emergency?1:0)-(a.is_emergency?1:0)||cmp(a,b),who=a=>me.role=="doctor"?a.patient||"Patient":a.doctor||"Doctor";
+function toast(m,t){const e=document.createElement("div");e.className="toast "+(t||"");e.textContent=m;document.body.append(e);setTimeout(()=>e.remove(),3600)}
+async function api(p,m="GET",b,quiet){try{const r=await fetch("/api"+p,{method:m,headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});
+ let j={};try{j=await r.json()}catch(e){}if(!r.ok){if(!quiet)toast(j.error||"Something went wrong. Try again.","err");return null}return j}catch(e){if(!quiet)toast("Cannot reach the server.","err");return null}}
+function modal(h){$("#mb").innerHTML=h;$("#mo").hidden=false}function closeM(){$("#mo").hidden=true}
+
+/* auth */
+function mode(r){regMode=r;$("#nm").hidden=!r;$("#ft").textContent=r?"Create account":"Sign in";$("#go").textContent=r?"Create account":"Sign in";$("#sw").textContent=r?"Have an account? Sign in":"New patient? Create an account"}
+async function go(){const b={email:$("#em").value.trim(),password:$("#pw").value};
+ if(regMode){b.name=$("#nm").value.trim();if(!await api("/register","POST",b))return}
+ const j=await api("/login","POST",{email:b.email,password:b.password});if(j)start(j)}
+async function logout(){await api("/logout","POST");location.reload()}
+async function gcal(){const j=await api("/google/connect");if(j)location=j.url}
+async function start(j){me=j;$("#login").hidden=true;$("#shell").hidden=false;
+ const nav=me.role=="admin"?[["admin","Doctors"]]:me.role=="doctor"?[["dash","Dashboard"],["appts","Appointments"]]:[["dash","Dashboard"],["book","Book a visit"],["appts","Appointments"],["meds","Medications"]];
+ $("#nav").innerHTML=nav.map(([v,t])=>`<button data-v="${v}" onclick="view('${v}')">${t}</button>`).join("");
+ const h=new Date().getHours();$("#hello").textContent=`${h<12?"Good morning":h<18?"Good afternoon":"Good evening"}, ${me.name.split(" ")[0]}`;
+ $("#today").textContent=new Date().toLocaleDateString("en",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ $("#av").textContent=me.name[0].toUpperCase();$("#un").textContent=me.name;$("#ur").textContent=me.role;
+ await load();view(nav[0][0])}
+async function load(){if(me.role=="admin")docs=await api("/doctors")||[];
+ else appts=(await api("/my/appointments")||[]).filter(a=>["confirmed","completed","cancelled"].includes(a.status))}
+function view(v){cur=v;$$(".view").forEach(e=>e.hidden=e.id!="v-"+v);$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==v));({dash:rDash,appts:rAppts,book:rBook,admin:rAdmin,meds:rMeds})[v]()}
+
+/* dashboard */
+const item=a=>{const ps=a.pre_summary,dr=me.role=="doctor";return `<div class="it ${a.is_emergency?"urg":""}"><div class="when"><b>${a.start}</b><small>${fmt(a.day)}</small></div>
+<div><div class="nm">${esc(who(a))} <span class="pill ${a.status}">${a.status}</span>${a.is_emergency?`<span class="pill uHigh">Urgent</span>`:""}${dr&&ps?`<span class="pill u${ps.urgency}">${esc(ps.urgency)} urgency</span>`:""}</div>
+<small>${dr?"Patient":esc(a.specialisation||"")}</small>
+${dr&&ps?`<details><summary>Pre-visit summary</summary><p><b>${esc(ps.chief_complaint)}</b></p><ol>${(ps.questions||[]).map(q=>`<li>${esc(q)}</li>`).join("")}</ol></details>`:""}
+${a.post_summary?`<details><summary>Visit summary</summary><pre>${esc(a.post_summary)}</pre></details>`:""}</div>
+<div class="act">${a.status=="confirmed"?(dr?`<button class="btn" onclick="visit(${a.id})">Complete visit</button>`:`<button class="ghost" onclick="resch(${a.id},${a.doctor_id})">Reschedule</button>`)+`<button class="ghost red" onclick="cancelA(${a.id})">Cancel</button>`:""}${a.post_summary?`<button class="ghost" onclick="printSum(${a.id})">Print or save PDF</button>`:""}</div></div>`};
+function rDash(){const t=TODAY(),up=appts.filter(a=>a.status=="confirmed"&&a.day>=t).sort(cmpU),n=up[0];
+ const hi=up.filter(a=>a.pre_summary&&a.pre_summary.urgency=="High").length;
+ $("#stats").innerHTML=`<div class="card dark"><span>Next visit</span>${n?`<b class="big">${n.start}</b><p>${esc(who(n))} on ${fmt(n.day)}</p>`:`<b class="big">None</b><p>${me.role=="patient"?"Book your next visit from the sidebar.":"No confirmed visits yet."}</p>`}</div>`
+ +[["Upcoming",up.length],["Completed",appts.filter(a=>a.status=="completed").length],me.role=="doctor"?["High urgency",hi]:["Cancelled",appts.filter(a=>a.status=="cancelled").length]].map(([k,v])=>`<div class="card"><span>${k}</span><b class="num">${v}</b></div>`).join("");
+ const d=Array(7).fill(0),c=Array(7).fill(0);appts.forEach(a=>{const w=(new Date(a.day+"T00:00").getDay()+6)%7;(a.status=="cancelled"?c:d)[w]++});
+ const m=Math.max(1,...d.map((x,i)=>x+c[i]));
+ $("#chart").innerHTML=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((l,i)=>`<div class="bar"><div class="col"><i class="x" style="height:${c[i]/m*100}%"></i><i style="height:${d[i]/m*100}%"></i></div><small>${l}</small></div>`).join("");
+ $("#up").innerHTML=up.slice(0,5).map(item).join("")||`<p class="mut">Nothing scheduled yet.</p>`;rCal()}
+function rCal(){const y=cal.getFullYear(),m=cal.getMonth(),f=(new Date(y,m,1).getDay()+6)%7,n=new Date(y,m+1,0).getDate(),has=new Set(appts.filter(a=>a.status!="cancelled").map(a=>a.day));
+ let h=["M","T","W","T","F","S","S"].map(x=>`<b>${x}</b>`).join("")+"<span></span>".repeat(f);
+ for(let i=1;i<=n;i++){const k=`${y}-${String(m+1).padStart(2,"0")}-${String(i).padStart(2,"0")}`;h+=`<button class="${k==TODAY()?"today":""} ${has.has(k)?"has":""}" onclick="pickDay('${k}')">${i}</button>`}
+ $("#cal").innerHTML=h;$("#calt").textContent=cal.toLocaleString("en",{month:"long",year:"numeric"})}
+function mv(n){cal.setMonth(cal.getMonth()+n);rCal()}
+function pickDay(k){D=k;F="all";view("appts")}
+
+/* appointments */
+function rAppts(){const t=TODAY();
+ $("#chips").innerHTML=["all","upcoming","completed","cancelled"].map(k=>`<button class="chip ${F==k?"on":""}" onclick="F='${k}';rAppts()">${k[0].toUpperCase()+k.slice(1)}</button>`).join("")+(D?`<button class="chip" onclick="D=null;rAppts()">Day ${fmt(D)} &times;</button>`:"");
+ const l=appts.filter(a=>(!D||a.day==D)&&(F=="all"||(F=="upcoming"?a.status=="confirmed"&&a.day>=t:a.status==F))).sort(F=="upcoming"?cmpU:(a,b)=>cmp(b,a));
+ $("#all").innerHTML=l.map(item).join("")||`<p class="mut">No appointments here.${me.role=="patient"?" Use Book a visit to schedule one.":""}</p>`}
+async function cancelA(id){if(confirm("Cancel this appointment?")&&await api(`/appointments/${id}/cancel`,"POST")){toast("Appointment cancelled");await load();view(cur)}}
+function resch(id,did){R={id,did};modal(`<h3>Reschedule</h3><input type="date" id="rd" min="${TODAY()}" onchange="rSlots()"><div id="rs" class="slots"></div>`)}
+async function rSlots(){const l=await api(`/doctors/${R.did}/slots?date=${$("#rd").value}`)||[];$("#rs").innerHTML=l.map(s=>`<button class="slot" onclick="doResch('${s}')">${s}</button>`).join("")||`<p class="mut">No free slots on this day.</p>`}
+async function doResch(s){if(await api(`/appointments/${R.id}/reschedule`,"POST",{date:$("#rd").value,start:s})){closeM();toast("Appointment rescheduled");await load();view(cur)}}
+function visit(id){V=id;modal(`<h3>Complete visit</h3><textarea id="vn" rows="4" placeholder="Clinical notes"></textarea><h3 class="sm">Prescription</h3><div id="rx"></div><button class="ghost" onclick="addRx()">Add medicine</button><div class="end"><button class="btn" id="vb" onclick="saveV()">Save and send summary</button></div>`);addRx()}
+function addRx(){const d=document.createElement("div");d.className="rx";d.innerHTML=`<input placeholder="Medicine"><input placeholder="Times, e.g. 08:00,20:00"><input type="number" min="1" placeholder="Days">`;$("#rx").append(d)}
+async function saveV(){const notes=$("#vn").value.trim();if(!notes)return toast("Add clinical notes first","err");
+ const rx=$$("#rx .rx").map(r=>{const[a,b,c]=r.querySelectorAll("input");return{name:a.value.trim(),times:b.value.split(",").map(x=>x.trim()).filter(Boolean),days:+c.value||1}}).filter(m=>m.name&&m.times.length);
+ const b=$("#vb");b.disabled=true;b.textContent="Writing patient summary...";const j=await api(`/appointments/${V}/visit`,"POST",{notes,prescription:rx});
+ if(j){closeM();toast("Visit saved. Summary sent to the patient");await load();view(cur)}else{b.disabled=false;b.textContent="Save and send summary"}}
+
+/* booking */
+function rBook(){findDocs()}
+async function findDocs(){const l=await api("/doctors?specialisation="+encodeURIComponent($("#spec").value));
+ $("#docs").innerHTML=(l||[]).map(d=>`<button class="doc ${B.doc==d.id?"sel":""}" onclick="pickDoc(${d.id})"><i>${esc(d.name[0])}</i><b>${esc(d.name)}</b><small>${esc(d.specialisation)}</small></button>`).join("")||`<p class="mut">No doctors match. Try another specialisation.</p>`}
+function pickDoc(id){B={doc:id};clearInterval(timer);$("#pick").hidden=false;$("#conf").hidden=true;$("#day").min=TODAY();if(!$("#day").value)$("#day").value=TODAY();findDocs();loadSlots()}
+async function loadSlots(){const d=$("#day").value;if(!d||!B.doc)return;const l=await api(`/doctors/${B.doc}/slots?date=${d}`)||[];
+ $("#slots").innerHTML=l.map(s=>`<button class="slot" onclick="hold('${s}')">${s}</button>`).join("")||`<p class="mut">No free slots on this day. Pick another date.</p>`}
+async function hold(s){const j=await api("/appointments/hold","POST",{doctor_id:B.doc,date:$("#day").value,start:s});if(!j)return loadSlots();
+ B.id=j.appointment_id;$("#conf").hidden=false;$("#hs").textContent=`Slot held: ${s} on ${fmt($("#day").value)}`;let t=j.hold_minutes*60;clearInterval(timer);
+ const tick=()=>{$("#tm").textContent=`Held for ${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}`;if(t--<=0){clearInterval(timer);$("#conf").hidden=true;toast("The hold expired. Pick the time again.","err");loadSlots()}};tick();timer=setInterval(tick,1000)}
+async function confirmB(){const sy=$("#sym").value.trim();if(!sy)return toast("Describe your symptoms first","err");
+ const b=$("#cb");b.disabled=true;b.textContent="Confirming...";const j=await api(`/appointments/${B.id}/confirm`,"POST",{symptoms:sy});b.disabled=false;b.textContent="Confirm booking";
+ if(!j)return;clearInterval(timer);toast(`Booked. Your doctor will see it flagged as ${j.pre_summary.urgency} urgency`);B={};$("#conf").hidden=true;$("#pick").hidden=true;$("#sym").value="";await load();view("appts")}
+
+/* urgent */
+let wt;function watch(id,box){clearTimeout(wt);wt=setTimeout(async()=>{const s=$("#"+id).value.trim(),b=$("#"+box);const j=s.length>3?await api("/triage/check","POST",{symptoms:s},true):null;
+ b.hidden=!(j&&j.emergency);if(j&&j.emergency)b.innerHTML="<b>These symptoms can be an emergency.</b>Call 112 or go to the nearest hospital now. Do not wait for an appointment."},500)}
+async function urgent(){const s=$("#usym").value.trim();if(!s)return toast("Describe what is wrong first","err");const b=$("#ub");b.disabled=true;b.textContent="Finding a slot...";
+ const j=await api("/appointments/urgent","POST",{symptoms:s,specialisation:$("#uspec").value.trim()});b.disabled=false;b.textContent="Book earliest slot today";if(!j)return;
+ modal(`<h3>Urgent visit booked</h3><p><b>${esc(j.doctor)}</b> today at <b>${j.start}</b>.</p>${j.emergency?`<div class="alert"><b>If this is an emergency, call 112 or go to the nearest hospital now.</b>This booking is only a backup.</div>`:""}<div class="end"><button class="btn" onclick="closeM();view('appts')">View appointment</button></div>`);$("#usym").value="";await load()}
+
+/* medications, print */
+async function rMeds(){const l=await api("/my/doses")||[],g={};l.forEach(d=>(g[d.at.slice(0,10)]=g[d.at.slice(0,10)]||[]).push(d));
+ $("#meds").innerHTML=Object.keys(g).map(k=>`<h3 class="sm">${fmt(k)}${k==TODAY()?" (today)":""}</h3>`+g[k].map(d=>`<div class="it"><div class="when"><b>${d.at.slice(11)}</b></div><div><div class="nm">${esc(d.text)} <span class="pill ${d.taken?"completed":d.missed?"cancelled":""}">${d.taken?"Taken":d.missed?"Missed":"Upcoming"}</span></div></div><div class="act">${d.taken?"":`<button class="btn" onclick="taken(${d.id})">Mark taken</button>`}</div></div>`).join("")).join("")||`<p class="mut">No medication reminders yet. They appear after a doctor completes your visit with a prescription.</p>`}
+async function taken(id){if(await api(`/doses/${id}/taken`,"POST")){toast("Marked as taken");rMeds()}}
+function printSum(id){const a=appts.find(x=>x.id==id);if(!a)return;const w=window.open("","_blank");if(!w)return toast("Allow pop-ups to print","err");
+ w.document.write(`<title>Visit summary</title><body style="font:15px/1.6 system-ui;max-width:680px;margin:30px auto"><h2>Visit summary</h2><p>${esc(a.doctor||"")} on ${esc(a.day)} at ${esc(a.start)}</p><pre style="white-space:pre-wrap;font:inherit">${esc(a.post_summary)}</pre><p><small>For information only. Follow your doctor's instructions.</small></p>`);w.document.close();w.print()}
+
+/* admin */
+function rAdmin(){$("#astats").innerHTML=`<div class="card dark"><span>Active doctors</span><b class="big">${docs.length}</b></div><div class="card"><span>Specialisations</span><b class="num">${new Set(docs.map(d=>d.specialisation)).size}</b></div>`;
+ $("#dl").innerHTML=docs.map(d=>`<div class="it"><div class="when"><b>#${d.id}</b></div><div><div class="nm">${esc(d.name)}</div><small>${esc(d.specialisation)}</small></div>
+ <div class="act"><button class="ghost" onclick="editM(${d.id})">Edit</button><button class="ghost" onclick="leaveM(${d.id})">Leave</button><button class="ghost red" onclick="deact(${d.id})">Deactivate</button></div></div>`).join("")||`<p class="mut">No doctors yet. Add the first one.</p>`;rAn();rEmails()}
+async function rAn(){const s=await api("/admin/stats");if(!s)return;const mx=Math.max(1,...Object.values(s.hours));
+ $("#ana").innerHTML=`<div class="stats" style="margin:0 0 14px"><div class="card"><span>Appointments</span><b class="num">${s.total}</b></div><div class="card"><span>Cancellation rate</span><b class="num">${s.cancel_rate}%</b></div><div class="card"><span>Urgent cases</span><b class="num">${s.urgent}</b></div><div class="card"><span>Failed emails</span><b class="num">${s.emails.failed}</b></div></div>
+ <h3 class="sm">Busiest hours</h3><div class="chart">${Object.entries(s.hours).map(([h,n])=>`<div class="bar"><div class="col"><i style="height:${n/mx*100}%"></i></div><small>${h}:00</small></div>`).join("")||'<span class="mut">No data yet</span>'}</div>
+ <h3 class="sm">Visits per doctor</h3>${Object.entries(s.per_doctor).map(([n,c])=>`<div class="nm">${esc(n)} <span class="pill completed">${c}</span></div>`).join("")||'<span class="mut">No data yet</span>'}`}
+async function rEmails(){const f=$("#ef").value,l=await api("/admin/emails"+(f?"?status="+f:""))||[];
+ $("#el").innerHTML=l.map(e=>`<div class="it"><div class="when"><b>#${e.id}</b></div><div><div class="nm">${esc(e.subject)} <span class="pill ${e.status=="sent"?"completed":e.status=="failed"?"cancelled":""}">${e.status}</span></div><small>${esc(e.to)}, attempts ${e.attempts}</small></div><div class="act">${e.status=="failed"?`<button class="ghost" onclick="retryE(${e.id})">Retry</button>`:""}</div></div>`).join("")||`<p class="mut">No emails.</p>`}
+async function retryE(id){if(await api(`/admin/emails/${id}/retry`,"POST")){toast("Queued for retry");rEmails()}}
+function addDocM(){modal(`<h3>Add doctor</h3><input id="an" autocomplete="off" placeholder="Full name"><input id="ae" autocomplete="off" placeholder="Email"><input id="ap" type="password" autocomplete="new-password" placeholder="Password"><input id="as" autocomplete="off" placeholder="Specialisation"><small>Start, end and minutes per slot</small><div class="row" style="margin-top:6px"><input id="ws" value="09:00"><input id="we" value="17:00"><input id="sm" type="number" value="30"></div><small>Slots kept free for urgent cases each day</small><input id="ems" type="number" min="0" value="2" style="margin-top:6px"><div class="end"><button class="btn" onclick="saveDoc()">Create doctor</button></div>`)}
+async function saveDoc(){if(await api("/admin/doctors","POST",{name:$("#an").value,email:$("#ae").value,password:$("#ap").value,specialisation:$("#as").value,work_start:$("#ws").value,work_end:$("#we").value,slot_minutes:+$("#sm").value,emergency_slots:+$("#ems").value||0})){closeM();toast("Doctor created");await load();view("admin")}}
+function editM(id){modal(`<h3>Edit doctor #${id}</h3><small>Leave a field empty to keep it.</small><input id="es" placeholder="Specialisation" style="margin-top:8px"><div class="row"><input id="ews" placeholder="Start"><input id="ewe" placeholder="End"><input id="esm" type="number" placeholder="Minutes"></div><input id="eem" type="number" min="0" placeholder="Urgent-only slots per day"><div class="end"><button class="btn" onclick="saveE(${id})">Save changes</button></div>`)}
+async function saveE(id){const b={};[["es","specialisation"],["ews","work_start"],["ewe","work_end"]].forEach(([i,k])=>{if($("#"+i).value)b[k]=$("#"+i).value});if($("#esm").value)b.slot_minutes=+$("#esm").value;if($("#eem").value)b.emergency_slots=+$("#eem").value;
+ if(await api("/admin/doctors/"+id,"PUT",b)){closeM();toast("Doctor updated");await load();view("admin")}}
+async function deact(id){if(confirm("Deactivate this doctor?")&&await api("/admin/doctors/"+id,"DELETE")){toast("Doctor deactivated");await load();view("admin")}}
+function leaveM(id){modal(`<h3>Doctor leave</h3><input type="date" id="ld" min="${TODAY()}"><div class="end"><button class="ghost" onclick="leave(${id},1)">Remove leave</button><button class="btn" onclick="leave(${id},0)">Mark leave</button></div>`)}
+async function leave(id,rm){const d=$("#ld").value;if(!d)return toast("Pick a date first","err");
+ const j=rm?await api(`/admin/doctors/${id}/leave/${d}`,"DELETE"):await api(`/admin/doctors/${id}/leave`,"POST",{day:d});
+ if(j){closeM();toast(rm?"Leave removed":`Leave marked. ${j.notified} patient(s) notified`)}}
+
+api("/me","GET",null,true).then(j=>j?start(j):($("#login").hidden=false));
+</script></body></html>
