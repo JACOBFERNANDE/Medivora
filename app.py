@@ -17,8 +17,8 @@ from flask import render_template, redirect
 
 app = Flask(__name__)
 url = os.getenv("DATABASE_URL", "sqlite:///clinic.db")
-if url.startswith("postgres://"):
-    url = url.replace("postgres://", "postgresql://", 1)
+if url.startswith("postgres"):   # Render gives postgres:// or postgresql://; force the psycopg2 driver explicitly
+    url = "postgresql+psycopg2://" + url.split("://", 1)[1]
 app.config.update(SQLALCHEMY_DATABASE_URI=url, SECRET_KEY=os.getenv("SECRET_KEY", "dev"))
 db = SQLAlchemy(app)
 lm = LoginManager(app)
